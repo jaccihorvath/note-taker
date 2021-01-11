@@ -31,7 +31,7 @@ node server.js
 
 ![note-taker](assets/note-taker.gif)
 
-For a more seamless experience, users are encouraged to [run the application online.] (https://limitless-thicket-48561.herokuapp.com/)
+For a more seamless experience, users are encouraged to [run the application online.](https://limitless-thicket-48561.herokuapp.com/)
 
 [Watch a video walkthrough of the application.](https://drive.google.com/file/d/1_EqJ_PaBRuHEMgnebBjcZ_sQcP0LrB23/view?usp=sharing)
 
