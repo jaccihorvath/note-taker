@@ -29,7 +29,7 @@ module.exports = function(app) {
 
             // building note object
             let notes = JSON.parse(data);
-            
+
             let newNote = {
                 id: id,
                 title: req.body.title,
@@ -43,9 +43,13 @@ module.exports = function(app) {
             notes.push(newNote);
 
             // writing to db
-            fs.writeFile(dbPath, JSON.stringify(notes));
-                res.json(notes);
+            fs.writeFile(dbPath, JSON.stringify(notes), "utf-8", (err, data) => {
+                if (err) throw err;
                 console.log("New note created");
+            });
+            
+            res.send(notes);
+
         });
     });
 
