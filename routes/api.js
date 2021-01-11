@@ -50,7 +50,7 @@ module.exports = function(app) {
 
     // DELETE -- deleting a saved note
     app.delete('/api/notes/:id', function (req, res) {
-        fs.readFile(dbPath, "utf-8", (err) => {
+        fs.readFile(dbPath, "utf-8", (err, data) => {
             if (err) throw err;
 
             // finds note with selected id and removes from array
