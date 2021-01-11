@@ -2,8 +2,10 @@
 const db = require('../db/db.json')
 const fs = require('fs');
 const uniqid = require('uniqid');
+const path = require('path');
 
 const dbPath = '../db/db.json'
+let notes = JSON.parse(data);
 
 // routes
 module.exports = function(app) {
@@ -12,7 +14,7 @@ module.exports = function(app) {
     app.get('/api/notes', function(req, res) {
         fs.readFile(dbPath, "utf-8", (err, data) => {
             if (err) throw err;
-            res.json(data);
+            res.json(notes);
         });
     });
 
@@ -35,15 +37,12 @@ module.exports = function(app) {
 
 
             // adding new note to array
-            let notes = [];
             notes.push(newNote);
 
             // writing to db
-            fs.writeFile(dbPath, JSON.stringify(notes), "utf-8", (err) => {
-                if (err) throw err;
+            fs.writeFile(dbPath, JSON.stringify(notes));
                 res.json(notes);
-                console.log("New note created")
-            });
+                console.log("New note created");
         });
     });
 
