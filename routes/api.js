@@ -4,7 +4,7 @@ const fs = require('fs');
 const uniqid = require('uniqid');
 const path = require('path');
 
-const dbPath = '../db/db.json';
+const dbPath = 'db/db.json';
 
 // routes
 module.exports = function(app) {
