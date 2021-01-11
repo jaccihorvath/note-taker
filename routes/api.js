@@ -10,31 +10,38 @@ module.exports = function(app) {
 
     // GET -- retrieving notes and returning notes as JSON
     app.get('/api/notes', function(req, res) {
-        res.send(db);
+        fs.readFile(dbPath, "utf-8", (err, data) => {
+            if (err) throw err;
+            res.json(data);
+        });
     });
 
     // POST -- adding new note to array
     app.post('/api/notes', function(req, res) {
-        // setting unique id to note
-        let id = uniqid();
-        // building note object
-        let newNote = {
-            id: id,
-            title: req.body.title,
-            text: req.body.text
-        };
-
         fs.readFile(dbPath, "utf-8", (err, data) => {
             if (err) throw err;
 
-            const notes = JSON.parse(data);
+            // setting unique id to note
+            let id = uniqid();
+
+            // building note object
+            let newNote = {
+                id: id,
+                title: req.body.title,
+                text: req.body.text
+            };
+
+            console.log(newNote);
+
+
             // adding new note to array
+            const notes = [];
             notes.push(newNote);
 
             // writing to db
             fs.writeFile(dbPath, JSON.stringify(notes), "utf-8", (err) => {
                 if (err) throw err;
-                res.send(db);
+                res.json(data);
                 console.log("New note created")
             });
         });
@@ -53,7 +60,7 @@ module.exports = function(app) {
             // rewrites new note array to db
             fs.writeFile(dbPath, JSON.stringify(newNotes), "utf-8", (err) => {
                 if (err) throw err;
-                res.send(db);
+                res.json(newNotes);
                 console.log("Your note has been deleted.")
             });
         });
