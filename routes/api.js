@@ -5,7 +5,6 @@ const uniqid = require('uniqid');
 const path = require('path');
 
 const dbPath = '../db/db.json';
-let notes = JSON.parse(data);
 
 // routes
 module.exports = function(app) {
@@ -14,6 +13,8 @@ module.exports = function(app) {
     app.get('/api/notes', function(req, res) {
         fs.readFile(dbPath, "utf-8", (err, data) => {
             if (err) throw err;
+
+            let notes = JSON.parse(data);
             res.json(notes);
         });
     });
@@ -37,6 +38,7 @@ module.exports = function(app) {
 
 
             // adding new note to array
+            let notes = JSON.parse(data);
             notes.push(newNote);
 
             // writing to db
@@ -53,6 +55,7 @@ module.exports = function(app) {
 
             // finds note with selected id and removes from array
             let id = req.params.id;
+            let notes = JSON.parse(data);
             const newNotes = notes.filter(notes => notes.id != id);
 
             // rewrites new note array to db
