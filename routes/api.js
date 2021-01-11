@@ -35,13 +35,13 @@ module.exports = function(app) {
 
 
             // adding new note to array
-            const notes = [];
+            let notes = [];
             notes.push(newNote);
 
             // writing to db
             fs.writeFile(dbPath, JSON.stringify(notes), "utf-8", (err) => {
                 if (err) throw err;
-                res.json(data);
+                res.json(notes);
                 console.log("New note created")
             });
         });
