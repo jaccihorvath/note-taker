@@ -3,6 +3,7 @@ const db = require('../db/db.json')
 const fs = require('fs');
 const uniqid = require('uniqid');
 
+const dbPath = '../db/db.json'
 
 // routes
 module.exports = function(app) {
@@ -23,7 +24,7 @@ module.exports = function(app) {
             text: req.body.text
         };
 
-        fs.readFile(db, "utf-8", (err, data) => {
+        fs.readFile(dbPath, "utf-8", (err, data) => {
             if (err) throw err;
 
             const notes = JSON.parse(data);
@@ -31,7 +32,7 @@ module.exports = function(app) {
             notes.push(newNote);
 
             // writing to db
-            fs.writeFile(db, JSON.stringify(notes), "utf-8", (err) => {
+            fs.writeFile(dbPath, JSON.stringify(notes), "utf-8", (err) => {
                 if (err) throw err;
                 res.send(db);
                 console.log("New note created")
@@ -41,7 +42,7 @@ module.exports = function(app) {
 
     // DELETE -- deleting a saved note
     app.delete('/api/notes/:id', function (req, res) {
-        fs.readFile(db, "utf-8", (err, data) => {
+        fs.readFile(dbPath, "utf-8", (err, data) => {
             if (err) throw err;
 
             // finds note with selected id and removes from array
@@ -50,7 +51,7 @@ module.exports = function(app) {
             const newNotes = notes.filter(notes => notes.id != id);
 
             // rewrites new note array to db
-            fs.writeFile(db, JSON.stringify(newNotes), "utf-8", (err) => {
+            fs.writeFile(dbPath, JSON.stringify(newNotes), "utf-8", (err) => {
                 if (err) throw err;
                 res.send(db);
                 console.log("Your note has been deleted.")
