@@ -9,7 +9,7 @@ module.exports = function(app) {
 
     // GET -- retrieving notes and returning notes as JSON
     app.get('/api/notes', function(req, res) {
-        res.json(data);
+        res.send(db);
     });
 
     // POST -- adding new note to array
