@@ -28,6 +28,8 @@ module.exports = function(app) {
             let id = uniqid();
 
             // building note object
+            let notes = JSON.parse(data);
+            
             let newNote = {
                 id: id,
                 title: req.body.title,
@@ -38,7 +40,6 @@ module.exports = function(app) {
 
 
             // adding new note to array
-            let notes = JSON.parse(data);
             notes.push(newNote);
 
             // writing to db
