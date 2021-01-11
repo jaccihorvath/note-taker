@@ -48,12 +48,11 @@ module.exports = function(app) {
 
     // DELETE -- deleting a saved note
     app.delete('/api/notes/:id', function (req, res) {
-        fs.readFile(dbPath, "utf-8", (err, data) => {
+        fs.readFile(dbPath, "utf-8", (err) => {
             if (err) throw err;
 
             // finds note with selected id and removes from array
             let id = req.params.id;
-            const notes = JSON.parse(data);
             const newNotes = notes.filter(notes => notes.id != id);
 
             // rewrites new note array to db
